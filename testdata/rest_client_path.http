@@ -1,0 +1,23 @@
+# VS Code REST Client response path spelling.
+# Tests: {{name.response.body.$.path}} syntax.
+
+@host = {{HTTPBIN_BASE_URL}}
+
+###
+# @name login
+POST {{host}}/post
+Content-Type: application/json
+
+{"user": "testuser", "role": "admin"}
+
+?? status == 200
+?? body json.user == testuser
+
+###
+# @name profile
+# @ref login
+GET {{host}}/get
+Accept: application/json
+
+?? status == 200
+?? body method == GET

@@ -1,0 +1,14 @@
+# Mixed case header tests.
+# Tests: headers with various cases.
+
+@host = {{HTTPBIN_BASE_URL}}
+@path = /headers
+
+###
+# @name mixedCase
+GET {{host}}{{path}}
+Accept: application/json
+X-Custom: test-value
+
+?? status == 200
+?? body headers.X-Custom includes test-value

@@ -1,0 +1,36 @@
+# Mixed assertion types.
+# Tests: combining all assertion subjects and operators.
+
+@host = {{HTTPBIN_BASE_URL}}
+@path = /get
+@postpath = /post
+
+###
+# @name mixedAssertions
+GET {{host}}{{path}}?test=mixed
+Accept: application/json
+
+?? status == 200
+?? body args.test exists
+?? body method == GET
+?? body url includes test=mixed
+?? duration < 5000
+?? duration >= 0
+?? duration isNumber
+
+###
+# @name complexMixed
+POST {{host}}{{postpath}}
+Content-Type: application/json
+
+{"key": "value", "count": 5, "active": true}
+
+?? status == 200
+?? body json.key == value
+?? body json.key isString
+?? body json.count isNumber
+?? body json.count == 5
+?? body json.count > 3
+?? body json.count < 10
+?? body json.active isTrue
+?? body json.active isBoolean

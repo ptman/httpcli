@@ -1,0 +1,21 @@
+# Complex body with multiple value types.
+# Tests: strings, numbers, booleans, arrays, nested objects.
+
+@host = {{HTTPBIN_BASE_URL}}
+@path = /post
+
+###
+# @name complexBody
+POST {{host}}{{path}}
+Content-Type: application/json
+
+{"string": "hello", "number": 42, "float": 3.14, "bool": true, "array": [1, 2, 3], "nested": {"key": "value"}}
+
+?? status == 200
+?? body json.string == hello
+?? body json.number == 42
+?? body json.float isNumber
+?? body json.bool isTrue
+?? body json.array isArray
+?? body json.nested exists
+?? body json.nested.key == value

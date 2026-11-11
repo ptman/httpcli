@@ -1,0 +1,14 @@
+# Match (regex) assertion tests.
+# Tests: "matches" operator with RE2 regex.
+
+@host = {{HTTPBIN_BASE_URL}}
+@path = /get
+
+###
+# @name regexMatch
+GET {{host}}{{path}}?name=test123
+Accept: application/json
+
+?? status == 200
+?? body url matches name=test\d+
+?? body method == GET

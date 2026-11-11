@@ -1,0 +1,20 @@
+# Relative URLs with @host.
+# Tests: origin-form URLs, @host prepend, host with/without trailing slash.
+
+@host = {{HTTPBIN_BASE_URL}}
+
+###
+# @name relativeWithHost
+GET /get?rel=yes
+Accept: application/json
+
+?? status == 200
+?? body method == GET
+?? body url includes /get
+
+###
+# @name relativeNoHost
+GET /get?test=noHost
+Accept: application/json
+
+?? status == 200

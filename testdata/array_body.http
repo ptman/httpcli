@@ -1,0 +1,16 @@
+# Array body tests.
+# Tests: JSON arrays as request bodies.
+
+@host = {{HTTPBIN_BASE_URL}}
+
+###
+# @name arrayBody
+POST {{host}}/post
+Content-Type: application/json
+
+[1, 2, 3, 4, 5]
+
+?? status == 200
+?? body json isArray
+?? body json.0 == 1
+?? body json.4 == 5

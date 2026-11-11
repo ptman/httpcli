@@ -1,0 +1,37 @@
+# Multiple variables in one file.
+# Tests: many variable definitions, file-level and request-level.
+
+@var1 = value1
+@var2 = value2
+@var3 = value3
+@var4 = value4
+@var5 = value5
+@var6 = value6
+@var7 = value7
+@var8 = value8
+@var9 = value9
+@var10 = value10
+
+@host = {{HTTPBIN_BASE_URL}}
+@path = /get
+
+###
+# @name multiVars
+GET {{host}}{{path}}?v1={{var1}}&v2={{var2}}&v3={{var3}}&v4={{var4}}&v5={{var5}}
+Accept: application/json
+
+?? status == 200
+?? body url includes v1=value1
+?? body url includes v5=value5
+
+###
+# @name requestVars
+@reqVar1 = reqValue1
+@reqVar2 = reqValue2
+
+GET {{host}}{{path}}?r1={{reqVar1}}&r2={{reqVar2}}
+Accept: application/json
+
+?? status == 200
+?? body url includes r1=reqValue1
+?? body url includes r2=reqValue2

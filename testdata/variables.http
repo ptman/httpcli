@@ -1,0 +1,25 @@
+# Variable definitions, interpolation, file-level scope.
+# Tests: @name=value, @name:=value, file-level vars, request-level override.
+
+@host = {{HTTPBIN_BASE_URL}}
+@path = /get
+@tag = varstest
+
+###
+# @name fileVars
+GET {{host}}{{path}}?name=varstest
+Accept: application/json
+
+?? status == 200
+?? body url endsWith /get?name=varstest
+
+###
+# Request-level var overrides file-level
+@extra = extra-value
+
+###
+# @name extraVar
+GET {{host}}{{path}}?name={{extra}}
+Accept: application/json
+
+?? status == 200

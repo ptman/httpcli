@@ -1,0 +1,19 @@
+# Numeric body assertion tests.
+# Tests: body.json.number comparisons, type checking on numbers.
+
+@host = {{HTTPBIN_BASE_URL}}
+
+###
+# @name numberBody
+POST {{host}}/post
+Content-Type: application/json
+
+{"count": 42, "price": 99.99, "active": true}
+
+?? status == 200
+?? body json.count == 42
+?? body json.count >= 40
+?? body json.count < 50
+?? body json.count isNumber
+?? body json.price isNumber
+?? body json.active isBoolean

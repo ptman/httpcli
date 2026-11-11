@@ -1,0 +1,22 @@
+# Percent-encoded variable substitution {{%name}}.
+# Tests: URL-safe encoding of variables with spaces, special chars.
+
+@host = {{HTTPBIN_BASE_URL}}
+@spaceName = hello world
+@path = /get
+@user = alice%20bob
+
+###
+# @name percentEncoded
+GET {{host}}{{path}}?name={{%spaceName}}
+Accept: application/json
+
+?? status == 200
+?? body url includes hello%20world
+
+###
+# @name percentPath
+GET {{host}}{{path}}?user={{%user}}
+Accept: application/json
+
+?? status == 200

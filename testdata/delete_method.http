@@ -1,0 +1,12 @@
+# DELETE method test.
+# Tests: DELETE request, which typically returns 204 No Content.
+
+@host = {{HTTPBIN_BASE_URL}}
+@path = /delete
+
+###
+# @name deleteRequest
+DELETE {{host}}{{path}}
+
+?? status == 200
+?? body method == DELETE

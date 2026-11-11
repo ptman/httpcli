@@ -1,0 +1,16 @@
+# PATCH method test.
+# Tests: PATCH request with partial JSON update.
+
+@host = {{HTTPBIN_BASE_URL}}
+@path = /patch
+
+###
+# @name patchRequest
+PATCH {{host}}{{path}}
+Content-Type: application/json
+
+{"patched": true}
+
+?? status == 200
+?? body method == PATCH
+?? body json.patched == true

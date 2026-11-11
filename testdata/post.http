@@ -1,0 +1,18 @@
+# JSON body echo: httpbin returns the parsed body under "json".
+@baseUrl = {{HTTPBIN_BASE_URL}}
+@user = httpcli
+
+###
+# @name create
+POST {{baseUrl}}/post
+Content-Type: application/json
+
+{
+  "name": "{{user}}",
+  "count": 3
+}
+
+?? status == 200
+?? body method == POST
+?? body json.name == httpcli
+?? body json.count == 3

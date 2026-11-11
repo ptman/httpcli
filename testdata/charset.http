@@ -1,0 +1,16 @@
+# Character encoding tests.
+# Tests: UTF-8 characters in headers and body.
+
+@host = {{HTTPBIN_BASE_URL}}
+
+###
+# @name utf8Body
+POST {{host}}/post
+Content-Type: application/json; charset=utf-8
+
+{"message": "你好世界", "emoji": "🚀🎉"}
+
+?? status == 200
+?? body json.message exists
+?? body json.emoji exists
+?? body json.message isString

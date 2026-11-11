@@ -1,0 +1,12 @@
+# Basic auth shorthand.
+# Tests: "Basic user pass" → base64-encoded credentials.
+
+@host = {{HTTPBIN_BASE_URL}}
+@path = /basic-auth/testuser/testpassword
+
+###
+# @name basicAuth
+GET {{host}}{{path}}
+Authorization: Basic testuser testpassword
+
+?? status == 200

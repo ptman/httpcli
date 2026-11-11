@@ -1,0 +1,15 @@
+# Long URL path tests.
+# Tests: long query strings, many parameters.
+
+@host = {{HTTPBIN_BASE_URL}}
+@path = /get
+
+###
+# @name longQuery
+GET {{host}}{{path}}?param1=value1&param2=value2&param3=value3&param4=value4&param5=value5&param6=value6&param7=value7&param8=value8&param9=value9&param10=value10
+Accept: application/json
+
+?? status == 200
+?? body url includes param1=value1
+?? body url includes param10=value10
+?? body method == GET

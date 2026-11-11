@@ -1,0 +1,23 @@
+# Environment file tests.
+# Tests: -env flag, http-client.env.json structure.
+
+# This file tests that the -env flag works correctly.
+# Run with: httpcli run testdata/env_file.http -env dev
+# or: httpcli run testdata/env_file.http -env prod
+
+@host = {{HTTPBIN_BASE_URL}}
+
+###
+# @name defaultEnv
+GET {{host}}/get?env=default
+Accept: application/json
+
+?? status == 200
+?? body method == GET
+
+###
+# @name anotherEnv
+GET {{host}}/get?env=another
+Accept: application/json
+
+?? status == 200

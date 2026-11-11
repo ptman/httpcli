@@ -1,0 +1,18 @@
+# Basic GET requests and assertions that work on any httpbin implementation.
+@baseUrl = {{HTTPBIN_BASE_URL}}
+
+###
+# @name echo
+GET {{baseUrl}}/get?name=httpcli&tag=smoke
+Accept: application/json
+
+?? status == 200
+?? header Content-Type includes application/json
+?? body method == GET
+?? body url endsWith /get?name=httpcli&tag=smoke
+
+###
+# @name teapot
+GET {{baseUrl}}/status/418
+
+?? status == 418

@@ -1,0 +1,14 @@
+# Bearer token auth tests.
+# Tests: Authorization: Bearer header sent to server.
+
+@host = {{HTTPBIN_BASE_URL}}
+@path = /headers
+@token = test-token-12345
+
+###
+# @name bearerAuth
+GET {{host}}{{path}}
+Authorization: Bearer {{token}}
+
+?? status == 200
+?? body headers.Authorization includes Bearer

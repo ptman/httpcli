@@ -1,0 +1,33 @@
+# Dynamic variables: $uuid, $timestamp, $randomInt, $isoTimestamp.
+# Tests: all dynamic variable types, both $ and no-$ prefixes.
+
+@host = {{HTTPBIN_BASE_URL}}
+@path = /get
+
+###
+# @name uuid
+GET {{host}}{{path}}?uuid={{uuid}}
+Accept: application/json
+
+?? status == 200
+
+###
+# @name timestamp
+GET {{host}}{{path}}?ts={{timestamp}}
+Accept: application/json
+
+?? status == 200
+
+###
+# @name isoTimestamp
+GET {{host}}{{path}}?iso={{isoTimestamp}}
+Accept: application/json
+
+?? status == 200
+
+###
+# @name randomInt
+GET {{host}}{{path}}?r={{randomInt}}
+Accept: application/json
+
+?? status == 200

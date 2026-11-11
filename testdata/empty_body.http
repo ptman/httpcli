@@ -1,0 +1,12 @@
+# Empty body test.
+# Tests: POST with no body.
+
+@host = {{HTTPBIN_BASE_URL}}
+@path = /post
+
+###
+# @name emptyBody
+POST {{host}}{{path}}
+
+?? status == 200
+?? body method == POST

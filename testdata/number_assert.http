@@ -1,0 +1,25 @@
+# Numeric assertion tests.
+# Tests: >, >=, <, <= comparisons with status and body numbers.
+
+@host = {{HTTPBIN_BASE_URL}}
+
+###
+# @name statusGt
+GET {{host}}/status/201
+Accept: application/json
+
+?? status == 201
+?? status > 200
+?? status >= 201
+?? status < 300
+
+###
+# @name statusLt
+GET {{host}}/status/500
+Accept: application/json
+
+?? status == 500
+?? status > 200
+?? status >= 500
+?? status <= 500
+?? status < 600

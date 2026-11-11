@@ -1,0 +1,10 @@
+# TRACE method test.
+# Tests: TRACE request.
+
+@host = {{HTTPBIN_BASE_URL}}
+
+###
+# @name traceRequest
+TRACE {{host}}/
+
+?? status >= 200

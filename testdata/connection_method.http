@@ -1,0 +1,10 @@
+# Connection method test.
+# Tests: CONNECT method support.
+
+@host = {{HTTPBIN_BASE_URL}}
+
+###
+# @name connectRequest
+CONNECT {{host}}:443
+
+?? status >= 200

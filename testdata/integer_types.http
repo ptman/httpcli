@@ -1,0 +1,20 @@
+# Integer type tests.
+# Tests: isNumber on various JSON number types.
+
+@host = {{HTTPBIN_BASE_URL}}
+
+###
+# @name intTypes
+POST {{host}}/post
+Content-Type: application/json
+
+{"int": 42, "float": 3.14, "neg": -10, "zero": 0}
+
+?? status == 200
+?? body json.int isNumber
+?? body json.float isNumber
+?? body json.neg isNumber
+?? body json.zero isNumber
+?? body json.int == 42
+?? body json.neg == -10
+?? body json.zero == 0

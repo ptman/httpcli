@@ -1,0 +1,36 @@
+# Reference chain tests.
+# Tests: # @ref for dependency ordering, chained refs.
+
+@host = {{HTTPBIN_BASE_URL}}
+
+###
+# @name first
+POST {{host}}/post
+Content-Type: application/json
+
+{"step": 1}
+
+?? status == 200
+?? body json.step == 1
+
+###
+# @name second
+# @ref first
+POST {{host}}/post
+Content-Type: application/json
+
+{"step": 2, "depends": "{{first.json.step}}"}
+
+?? status == 200
+?? body json.step == 2
+
+###
+# @name third
+# @ref second
+POST {{host}}/post
+Content-Type: application/json
+
+{"step": 3, "depends": "{{second.json.step}}"}
+
+?? status == 200
+?? body json.step == 3

@@ -1,0 +1,23 @@
+# Response chaining: a named request feeds variables into the next one.
+# httpbin echoes the posted JSON, so "login.json.token" is a plain string on
+# every httpbin implementation (unlike "args", which some wrap in arrays).
+@baseUrl = {{HTTPBIN_BASE_URL}}
+
+###
+# @name login
+POST {{baseUrl}}/post
+Content-Type: application/json
+
+{"token": "secret-token"}
+
+?? status == 200
+?? body json.token == secret-token
+
+###
+# @name profile
+# @ref login
+GET {{baseUrl}}/get?token={{login.json.token}}
+Authorization: Bearer {{login.json.token}}
+
+?? status == 200
+?? body includes secret-token

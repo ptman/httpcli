@@ -1,0 +1,14 @@
+# Request with no assertions.
+# Tests: file with valid requests but no ?? lines.
+
+@host = {{HTTPBIN_BASE_URL}}
+
+###
+# @name noAssert
+GET {{host}}/get?noassert=yes
+Accept: application/json
+
+###
+# @name alsoNoAssert
+GET {{host}}/get?noassert=also
+Accept: application/json

@@ -1,0 +1,17 @@
+# URL continuation via indentation.
+# Tests: multi-line URLs with indented lines.
+
+@host = {{HTTPBIN_BASE_URL}}
+
+###
+# @name continuation
+GET {{host}}/get
+    ?name=continuation
+    &page=1
+    &limit=10
+Accept: application/json
+
+?? status == 200
+?? body url includes continuation
+?? body url includes page=1
+?? body url includes limit=10

@@ -1,0 +1,10 @@
+# Empty request test.
+# Tests: GET with no headers, no body.
+
+@host = {{HTTPBIN_BASE_URL}}
+
+###
+# @name emptyRequest
+GET {{host}}/get
+
+?? status == 200

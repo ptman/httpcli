@@ -1,0 +1,20 @@
+# Comments and separators tests.
+# Tests: #, //, /* */ block comments, ### separators with titles.
+
+@host = {{HTTPBIN_BASE_URL}}
+@path = /get
+
+### This is a request title ###
+# This is a single line comment
+GET {{host}}{{path}}?test=comments
+Accept: application/json
+
+/* This is a block
+   comment */
+
+### Another title with spaces ###
+// Another single line comment
+GET {{host}}{{path}}?test=alsoComments
+Accept: application/json
+
+?? status == 200

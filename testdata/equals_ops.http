@@ -1,0 +1,24 @@
+# Equality operator tests.
+# Tests: == (equals), != (not equals), status comparisons.
+
+@host = {{HTTPBIN_BASE_URL}}
+
+###
+# @name eqTest
+GET {{host}}/status/200
+Accept: application/json
+
+?? status == 200
+?? status equals 200
+?? status != 201
+?? status != 500
+
+###
+# @name neqTest
+GET {{host}}/status/404
+Accept: application/json
+
+?? status == 404
+?? status != 200
+?? status != 500
+?? status != 403

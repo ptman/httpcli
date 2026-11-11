@@ -1,0 +1,16 @@
+# Header tests.
+# Tests: multi-line headers, custom headers, various content types.
+
+@host = {{HTTPBIN_BASE_URL}}
+@path = /headers
+
+###
+# @name multiLine
+GET {{host}}{{path}}
+Accept: application/json
+Content-Type: application/json
+X-Custom-Header: custom-value
+Accept-Language: en-US
+
+?? status == 200
+?? body headers.Accept-Language includes en

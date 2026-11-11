@@ -1,0 +1,23 @@
+# Contains/includes variation tests.
+# Tests: both "includes" and "contains" operators.
+
+@host = {{HTTPBIN_BASE_URL}}
+
+###
+# @name includes
+GET {{host}}/get?search=hello%20world
+Accept: application/json
+
+?? status == 200
+?? body url includes hello
+?? body url includes world
+?? body url includes hello%20world
+
+###
+# @name contains
+GET {{host}}/get?search=hello%20world
+Accept: application/json
+
+?? status == 200
+?? body url contains hello
+?? body url contains world

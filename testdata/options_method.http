@@ -1,0 +1,13 @@
+# OPTIONS method test.
+# Tests: OPTIONS request for CORS preflight.
+
+@host = {{HTTPBIN_BASE_URL}}
+@path = /
+
+###
+# @name optionsRequest
+OPTIONS {{host}}{{path}}
+Access-Control-Request-Method: POST
+Access-Control-Request-Headers: Content-Type
+
+?? status == 200

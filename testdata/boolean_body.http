@@ -1,0 +1,17 @@
+# Boolean value tests in body.
+# Tests: isTrue, isFalse on boolean JSON values.
+
+@host = {{HTTPBIN_BASE_URL}}
+
+###
+# @name boolTrue
+POST {{host}}/post
+Content-Type: application/json
+
+{"active": true, "deleted": false, "count": 0}
+
+?? status == 200
+?? body json.active isTrue
+?? body json.deleted isFalse
+?? body json.count isNumber
+?? body json.count == 0

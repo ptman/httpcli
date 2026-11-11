@@ -1,0 +1,14 @@
+# Duration assertion tests.
+# Tests: duration timing comparisons.
+
+@host = {{HTTPBIN_BASE_URL}}
+@path = /get
+
+###
+# @name durationCheck
+GET {{host}}{{path}}
+Accept: application/json
+
+?? status == 200
+?? duration < 5000
+?? duration exists

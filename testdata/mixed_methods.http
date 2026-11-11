@@ -1,0 +1,49 @@
+# Multiple HTTP methods in one file.
+# Tests: GET, POST, PUT, DELETE, PATCH in sequence.
+
+@host = {{HTTPBIN_BASE_URL}}
+
+###
+# @name getReq
+GET {{host}}/get?test=mixed
+Accept: application/json
+
+?? status == 200
+?? body method == GET
+
+###
+# @name postReq
+POST {{host}}/post
+Content-Type: application/json
+
+{"method": "POST"}
+
+?? status == 200
+?? body json.method == POST
+
+###
+# @name putReq
+PUT {{host}}/put
+Content-Type: application/json
+
+{"method": "PUT"}
+
+?? status == 200
+?? body json.method == PUT
+
+###
+# @name deleteReq
+DELETE {{host}}/delete
+
+?? status == 200
+?? body method == DELETE
+
+###
+# @name patchReq
+PATCH {{host}}/patch
+Content-Type: application/json
+
+{"method": "PATCH"}
+
+?? status == 200
+?? body json.method == PATCH

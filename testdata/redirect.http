@@ -1,0 +1,18 @@
+# Redirect tests.
+# Tests: 301, 302 redirects, following redirect chains.
+
+@host = {{HTTPBIN_BASE_URL}}
+
+###
+# @name redirect301
+GET {{host}}/redirect-to?url={{host}}/get&status_code=301
+
+?? status == 200
+?? body method == GET
+
+###
+# @name redirect302
+GET {{host}}/redirect-to?url={{host}}/get&status_code=302
+
+?? status == 200
+?? body method == GET

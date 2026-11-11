@@ -1,0 +1,17 @@
+# Null value tests.
+# Tests: null JSON values, isFalse assertions.
+
+@host = {{HTTPBIN_BASE_URL}}
+@path = /post
+
+###
+# @name nullValue
+POST {{host}}{{path}}
+Content-Type: application/json
+
+{"name": "test"}
+
+?? status == 200
+?? body json.name exists
+?? body json.name isString
+?? body json.name == test

@@ -1,0 +1,14 @@
+# URL-encoded form body using the "&" continuation syntax.
+@baseUrl = {{HTTPBIN_BASE_URL}}
+
+###
+# @name login
+POST {{baseUrl}}/post
+Content-Type: application/x-www-form-urlencoded
+
+username=admin
+&password=secret
+
+?? status == 200
+?? body form.username includes admin
+?? body form.password includes secret

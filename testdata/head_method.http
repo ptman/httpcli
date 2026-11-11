@@ -1,0 +1,11 @@
+# HEAD method test.
+# Tests: HEAD request, which should return no body.
+
+@host = {{HTTPBIN_BASE_URL}}
+@path = /get
+
+###
+# @name headRequest
+HEAD {{host}}{{path}}?test=head
+
+?? status == 200

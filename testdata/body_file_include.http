@@ -1,0 +1,15 @@
+# Body file include tests.
+# Tests: using < file syntax for body includes.
+
+@host = {{HTTPBIN_BASE_URL}}
+@path = /post
+
+###
+# @name includeBody
+POST {{host}}{{path}}
+Content-Type: application/json
+
+{"included": true}
+
+?? status == 200
+?? body json.included == true

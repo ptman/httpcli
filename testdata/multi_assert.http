@@ -1,0 +1,24 @@
+# Multiple assertions per request.
+# Tests: multiple ?? lines, mixed assertion types.
+
+@host = {{HTTPBIN_BASE_URL}}
+@path = /get
+
+###
+# @name allAssertions
+GET {{host}}{{path}}?test=all
+Accept: application/json
+
+?? status == 200
+?? body args.test exists
+?? body method == GET
+?? body url includes test=all
+
+###
+# @name stringOps
+GET {{host}}{{path}}?query=hello%20world&name=alice
+Accept: application/json
+
+?? status == 200
+?? body url includes query=hello
+?? body url includes world

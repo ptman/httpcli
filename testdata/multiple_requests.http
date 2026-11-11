@@ -1,0 +1,32 @@
+# Multiple requests in one file without chaining.
+# Tests: running all requests with -all flag.
+
+@host = {{HTTPBIN_BASE_URL}}
+
+### Request One
+GET {{host}}/get?req=one
+Accept: application/json
+
+?? status == 200
+?? body method == GET
+
+### Request Two
+GET {{host}}/get?req=two
+Accept: application/json
+
+?? status == 200
+?? body url includes req=two
+
+### Request Three
+GET {{host}}/get?req=three
+Accept: application/json
+
+?? status == 200
+?? body url includes req=three
+
+### Request Four
+GET {{host}}/get?req=four
+Accept: application/json
+
+?? status == 200
+?? body url includes req=four

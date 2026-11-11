@@ -1,0 +1,18 @@
+# Whitespace handling tests.
+# Tests: tabs, spaces, indentation in body.
+
+@host = {{HTTPBIN_BASE_URL}}
+@path = /post
+
+###
+# @name whitespaceBody
+POST {{host}}{{path}}
+Content-Type: text/plain
+
+Line one
+  Indented line
+	Tab line
+Line four
+
+?? status == 200
+?? body method == POST

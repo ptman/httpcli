@@ -1,0 +1,16 @@
+# PUT method test.
+# Tests: PUT request with JSON body.
+
+@host = {{HTTPBIN_BASE_URL}}
+@path = /put
+
+###
+# @name putRequest
+PUT {{host}}{{path}}
+Content-Type: application/json
+
+{"updated": true, "field": "value"}
+
+?? status == 200
+?? body method == PUT
+?? body json.updated == true

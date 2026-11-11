@@ -1,0 +1,27 @@
+# Different body types tests.
+# Tests: JSON, XML, text, form body.
+
+@host = {{HTTPBIN_BASE_URL}}
+
+###
+# @name xmlBody
+POST {{host}}/post
+Content-Type: application/xml
+
+<?xml version="1.0"?>
+<root>
+  <item>test</item>
+</root>
+
+?? status == 200
+?? body method == POST
+
+###
+# @name textBody
+POST {{host}}/post
+Content-Type: text/plain
+
+This is plain text body content.
+
+?? status == 200
+?? body method == POST

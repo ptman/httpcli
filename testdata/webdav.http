@@ -1,0 +1,10 @@
+# WebDAV method tests.
+# Tests: PROPFIND, MKCOL methods (may return 405 if not supported).
+
+@host = {{HTTPBIN_BASE_URL}}
+
+###
+# @name propfind
+PROPFIND {{host}}/
+
+?? status >= 200

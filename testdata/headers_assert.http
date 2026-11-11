@@ -1,0 +1,15 @@
+# Header assertion tests.
+# Tests: header exists, header includes.
+
+@host = {{HTTPBIN_BASE_URL}}
+@path = /headers
+
+###
+# @name headerExists
+GET {{host}}{{path}}
+Accept: application/json
+X-Test-Header: test-value
+
+?? status == 200
+?? body headers.X-Test-Header exists
+?? body headers.X-Test-Header includes test-value

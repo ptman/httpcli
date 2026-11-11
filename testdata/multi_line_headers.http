@@ -1,0 +1,14 @@
+# Multi-line header value tests.
+# Tests: headers continued on indented lines.
+
+@host = {{HTTPBIN_BASE_URL}}
+@path = /headers
+
+###
+# @name multiLineHeaders
+GET {{host}}{{path}}
+Accept: application/json
+X-Custom: custom1, custom2, custom3
+
+?? status == 200
+?? body headers.X-Custom includes custom2

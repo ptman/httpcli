@@ -1,0 +1,60 @@
+# All HTTP methods test.
+# Tests: GET, HEAD, POST, PUT, DELETE, OPTIONS, PATCH.
+
+@host = {{HTTPBIN_BASE_URL}}
+
+###
+# @name get
+GET {{host}}/get?test=allmethods
+
+?? status == 200
+?? body method == GET
+
+###
+# @name head
+HEAD {{host}}/get?test=allmethods
+
+?? status == 200
+
+###
+# @name post
+POST {{host}}/post
+Content-Type: application/json
+
+{"method": "POST"}
+
+?? status == 200
+?? body json.method == POST
+
+###
+# @name put
+PUT {{host}}/put
+Content-Type: application/json
+
+{"method": "PUT"}
+
+?? status == 200
+?? body json.method == PUT
+
+###
+# @name delete
+DELETE {{host}}/delete
+
+?? status == 200
+?? body method == DELETE
+
+###
+# @name options
+OPTIONS {{host}}/get
+
+?? status == 200
+
+###
+# @name patch
+PATCH {{host}}/patch
+Content-Type: application/json
+
+{"method": "PATCH"}
+
+?? status == 200
+?? body json.method == PATCH

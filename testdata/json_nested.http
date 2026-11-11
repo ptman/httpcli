@@ -1,0 +1,33 @@
+# Nested JSON body path tests.
+# Tests: deep JSON paths, array indexing, nested objects.
+
+@host = {{HTTPBIN_BASE_URL}}
+
+###
+# @name nestedJson
+POST {{host}}/post
+Content-Type: application/json
+
+{
+  "user": {
+    "name": "testuser",
+    "roles": ["admin", "developer"],
+    "settings": {
+      "theme": "dark",
+      "notifications": true
+    }
+  },
+  "items": [
+    {"id": 1, "name": "first"},
+    {"id": 2, "name": "second"}
+  ]
+}
+
+?? status == 200
+?? body json.user.name == testuser
+?? body json.user.roles.0 == admin
+?? body json.user.settings.theme == dark
+?? body json.user.settings.notifications isTrue
+?? body json.items.0.name == first
+?? body json.items.1.id == 2
+?? body json.items isArray

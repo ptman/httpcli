@@ -1,0 +1,26 @@
+# Boolean assertion tests.
+# Tests: isTrue, isFalse conditions on body values.
+
+@host = {{HTTPBIN_BASE_URL}}
+@path = /get
+
+###
+# @name boolTrue
+# Repeat the parameter: implementations differ on whether a single value is a
+# string or an array, but a repeated one is always an array.
+GET {{host}}{{path}}?flag=true&flag=true
+Accept: application/json
+
+?? status == 200
+?? body args.flag isArray
+?? body method exists
+?? body method isString
+
+###
+# @name boolFalse
+GET {{host}}{{path}}
+Accept: application/json
+
+?? status == 200
+?? body method exists
+?? body method isString
